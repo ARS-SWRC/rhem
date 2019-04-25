@@ -1,0 +1,210 @@
+	<MM:BeginLock translatorClass="MM_SSI" type="ssi" orig="%3C?php include 'head.php'?%3E" fileRef="head.php" depFiles="file:///C|/my/Projects/DRHEM/drhem/application/views/head.php"><!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Gerardo Armendariz" />
+	<meta name="keywords" content="RHEM, rhem tool,rangeland hydrology, rangeland erosion, erosion, hydrology, web based erosion model, model, rangeland, tucson arizona, tucson, arizona, ars, usda" />
+	<meta name="description" content="This tooll allows the user to input commonly known rangeland characteristics and use parameter estimation equations to construct RHEM model input files, run the model, view the results, and compare different scenarios." />
+	<title>RHEM Web Tool</title>
+    
+	<link rel="stylesheet" title="Disabled for Preview-in-Browser: <?php echo base_url(); ?>assets/bootstrap/css/bootstrap.css">
+<style type="text/css">
+
+
+
+</style>
+    <link rel="stylesheet" title="Disabled for Preview-in-Browser: <?php echo base_url(); ?>assets/css/style.css" type="text/css" media="screen" charset="utf-8"/>
+<style type="text/css" media="screen">
+
+
+
+</style>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("jquery", "1.7.1");
+	</script>
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+     <MM:EndLock>
+	<title>DRHEM Web Tool: Account</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script language="javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js" ></script>
+	<script type="text/javascript">
+		$().ready(function() {
+			$("#userform").validate({
+				rules: {
+					requesttype: {required: true},
+					firstname: {required: true},
+					lastname: {required: true},
+					lastname: {required: true},
+					email: {required:true,email:true},
+					comments: {required: true}
+				},
+				messages: {
+					requesttype: "Please select a request type from the list."
+				}
+			});
+		});
+		
+		var RecaptchaOptions = {theme : 'white'};
+	</script>
+</head>
+<body>
+	<div class="content">
+		<MM:BeginLock translatorClass="MM_SSI" type="ssi" orig="%3C?php  include 'intro.php';?%3E" fileRef="intro.php" depFiles="file:///C|/my/Projects/DRHEM/drhem/application/views/intro.php">		<div class="header_right">
+			<div class="top_info">
+						<span>Hello, 
+						<?php echo ($this->session->userdata('is_logged_in') == true?$this->session->userdata('user_first_name'):"Guest"); ?>
+						 </span>
+						<strong>
+						<?php 
+							if($this->session->userdata('is_logged_in') == true)
+							{
+								echo '<a href="' . base_url() . 'login/out">Log Out</a>' . '  <a href="' . base_url() . 'account" style="font-size:11px;">Account</a>';;
+							}
+							else
+							{
+								//echo '<a href="' . base_url() . 'login">Log In</a> or ';
+								echo '<a href="#myModal" data-toggle="modal">Log In</a> or ';
+								echo '<a href="' . base_url() . 'register">Register</a>';
+							}
+						?>  
+						</strong>		
+			</div>
+			<div class="menubar">
+				<ul class="nav nav-pills pull-right">
+					<li <?php echo ($this->uri->segment(1) == ''?'class="active"':'');?>><a href="<?php echo base_url(); ?>."><span></span>Home</a></li>
+					<li <?php echo ($this->uri->segment(1) == 'about'?'class="active"':'');?>><a href="<?php echo base_url(); ?>about"><span></span>About</a></li>
+					<li <?php echo ($this->uri->segment(1) == 'links'?'class="active"':'');?>><a href="<?php echo base_url(); ?>links"><span></span>Links</a></li>
+					<li <?php echo ($this->uri->segment(1) == 'contact'?'class="active"':'');?>><a href="<?php echo base_url(); ?>contact"><span></span>Contact Us</a></li>
+				</ul>
+			</div>	
+		</div>
+			
+		<div class="logo">
+			<h1 onclick='document.location.href="<?php echo base_url()?>"'></h1>
+			<p>Rangeland Hydrology and Erosion Model Web Tool</p>
+		</div>
+		<div class="date_bar">
+			<span class="grey">
+			<?php echo 'Now:       '. date('D, M d Y') ."\n"; ?>
+			</span>
+		</div>
+        
+
+
+<MM:EndLock>    
+		<div class="subheader">
+		</div>
+		<div class="subcontent">
+			<div class="subcontent_item">
+				<h2>Account</h2>
+                <form action="<?php echo base_url(); ?>contact/send" method="post" class="form-horizontal">
+                	<h4>Change Password</h4>
+                    <div class="control-group">
+                        <label class="control-label" for="inputEmail">Current Password</label>
+                        <div class="controls">
+                            <input type="text" id="currentPassword" placeholder="Old Password">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPassword">New Password</label>
+                        <div class="controls">
+                            <input type="password" id="inputPassword" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <button type="submit" class="btn">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+			</div>	
+		</div>	
+		<MM:BeginLock translatorClass="MM_SSI" type="ssi" orig="%3C?php include 'right.php'; ?%3E" fileRef="right.php" depFiles="file:///C|/my/Projects/DRHEM/drhem/application/views/right.php">		<div class="right_panel">
+            <div class="run_button">
+                <a href="tool"><img src="dwres:6088" alt="Run Model"/></a>
+            </div>
+            <div class="bw_block">
+                <div class="rt"></div>
+                <div class="bw_text">
+                    <p><b>Built with:
+                        <ol>
+                            <li><a href="http://apps.tucson.ars.ag.gov/rhem/links">RHEM Model</a></li>
+                            <li><a href="http://www.ars.usda.gov/Research/docs.htm?docid=18094">Cligen Weather Generator</a></li>
+                            <li><a href="http://codeigniter.com/">CodeIgniter</a></li> 
+                            <li><a href="http://www.mysql.com/">MySQL</a></li>
+                            <li><a href="http://maps.google.com/">Google Maps</a></li>
+                        </ol>
+                        </b>
+                    </p>
+                </div>
+            </div>
+         </div>
+<MM:EndLock>
+		<MM:BeginLock translatorClass="MM_SSI" type="ssi" orig="%3C?php include 'footer.php'; ?%3E" fileRef="footer.php" depFiles="file:///C|/my/Projects/DRHEM/drhem/application/views/footer.php">		<div class="footer">
+		<div class="inside">
+			<p><a href=".">Home</a> | <a href="about">About</a> | <a href="links">Links</a> | <a href="contact">Contact Us</a> <br />
+			&copy; Copyright 2008 <a href="http://tucson.ars.ag.gov/"><b>SWRC-ARS-USDA</b></a></p>
+		</div>
+		<div class="tr"></div>
+		<div class="tl"></div>
+		<div class="br"></div>
+		<div class="bl"></div>
+		</div>
+	</div>
+    
+	<script type="text/javascript">
+	 /* var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-1574691-3']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+		var ga = document.createElement('script');
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		ga.setAttribute('async', 'true');
+		document.documentElement.firstChild.appendChild(ga);
+	  })();*/
+	</script>
+    
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form action="<?php echo base_url(); ?>login/in" method="post" id="userform" class="styled">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Log<span class="blue">in</span></h3> 
+            </div>
+           
+            <div class="modal-body">
+                    
+                    <fieldset>
+                        <p>Please login to begin using this tool: </p>
+                        <?php echo (isset($errormessage)?$errormessage:'');?>
+                        <p>
+                            <label for="username" accesskey="l">Username: </label>
+                            <input type="text" id="username" name="username" tabindex="1">
+                        </p>
+                        <p>
+                            <label for="password" accesskey="l">Password: </label>
+                            <input type="password" id="password" name="password" tabindex="2">
+                        </p>
+                        <p>
+                            <a href="recover">Forgot your password?</a>
+                        </p>
+                        <p><br/>
+                            <a href="register"><b>New user?</b> Register to use this tool.</a>
+                        </p>
+                    </fieldset>
+                    
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button type="submit" id="login" class="btn btn-warning" tabindex="3">Login</button>
+            </div>
+        </form>
+        
+        
+    </div><MM:EndLock>	
+</body>
+</html>
