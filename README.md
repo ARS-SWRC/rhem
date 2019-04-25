@@ -1,2 +1,2 @@
-# rhem
-Code base for the RHEM Web Tool
+# RHEM Web Tool
+This is the code base for the RHEM Web Tool
