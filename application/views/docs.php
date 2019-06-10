@@ -137,7 +137,7 @@ Approach for Predicting Soil Loss on Rangelands</a></li>
 					</div>
 					<div class="tab-pane" id="tab5">
 						<h4>RHEM Batch Script</h4>
-						<p>As many of you requested, we now have the ability to run RHEM in batch mode. This functionality enables you to run RHEM with multiple scenarios in batch format using a Python script. In order for you to run RHEM in batch mode, you are required to:
+						<p>After many requests from our users, we now have the ability to run RHEM in batch mode based on the RHEM Model-as-a-Service (MaaS) using the Cloud Services Innovation Platform (CSIP). More inormation about MaaS and CSIP can be read in <a href="https://digitalcommons.tacoma.uw.edu/cgi/viewcontent.cgi?article=1012&context=tech_pub">this publication</a>. This functionality enables you to run RHEM with multiple scenarios in batch format using a Python script. In order for you to run RHEM in batch mode, you are required to:
 							<ol>
 								<li>Have an internet enabled computer</li>
 								<li>Install Python</li>
