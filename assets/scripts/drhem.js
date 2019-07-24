@@ -949,7 +949,9 @@ function validateScenario(){
 	}
 	//var stateid = $("#stateid").val();
 	//var climatestationid = $("#climatestationid").val();
-	var soiltexture = $("#soiltexture").val();
+    var soiltexture = $("#soiltexture").val();
+    //var salinesoil_flag = $("#salinity_checkbox").is(":checked");
+    //var salinesoil_sar = $("#sar_input").val();
 	var slopelength = $("#slopelength").val();
 	var slopeslopesteepness = $("#slopesteepness").val();
 	var bunchgrasscanopycover = $("#bunchgrasscanopycover").val();
@@ -969,7 +971,9 @@ function validateScenario(){
 	message += (stateid == ''?"<li>Please select a state.</li>":'');
 	message += (climatestationid == ''?"<li>Please select a climate station.</li>":'');
 	message += (soiltexture == ''?"<li>Please select a soil texture.</li>":'');
-	
+    
+    //message += (salinesoil_flag == true && salinesoil_sar == ''?"<li>You specified that this is a saline scenario, but did not specify an SAR value.</li>":'');
+    
 	// check for the slope length (under 120m or 395ft)
 	compareSlopeLength = 120;
 	unitsForSlopelength = "m";
@@ -1112,7 +1116,7 @@ function validateScenarioUnits()
 {
 	validated = true;
 	unitCompare = '';
-	$("input[type=checkbox]:checked").each(function(i){
+	$("#results_panel input[type=checkbox]:checked").each(function(i){
 		if($(this).parent().prev().get(0).innerHTML != unitCompare && unitCompare != ''){
 			$.prompt("Please make sure that all scenarios to compare are of the same units.",{ buttons: { Ok: true } , overlayspeed:'fast' });
 			validated = false;

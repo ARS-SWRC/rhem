@@ -54,7 +54,7 @@
 								<ul>
 								<li>.RUN - description of the files needed to perform the run </li>
 								<li>.PAR - the input parameter file </li>
-								<li>.STM - the storm file create for the selected climate station </li>
+								<li>.PRE - the storm file create for the selected climate station </li>
 							</ul>
 							<!--TODO: include a link to the .RUN file structure-->
 						</p>	
