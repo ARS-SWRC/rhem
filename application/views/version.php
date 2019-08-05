@@ -1,8 +1,15 @@
 		<div class="right_panel">
-    		<b> Version Updates </b>
+    		<span style="font-weight:bold;font-size:1.2em;"> Version Updates </span>
 			<div class="scroll-pane">
                 <p>
-                    <b>Version: <i>2.3 Update 4</i> </b>
+                    <span class="version_title">Version: <i>2.3 Update 5</i> </span>
+                    <ul style="color:#666">
+                        <li>Added a new checkbox and SAR input box to the Soil Texture panel for saline scanarios.</li>
+                        <li>When a scenario is ran with this SAR value, a new row will appear in the Annual Averages table showing the "Salt Load".</li>
+                    </ul>
+                </p>
+                <p>
+                    <span class="version_title">Version: <i>2.3 Update 4</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li> Ability to export report graphics as SVG.</li>
@@ -12,7 +19,7 @@
                     </ul>
                 </p>
                 <p>
-                    <b>Version: <i>2.3 Update 3</i> </b>
+                    <span class="version_title">Version: <i>2.3 Update 3</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li> International climate stations are now supported.  Users can <a href="https://apps.tucson.ars.ag.gov/rhem/docs#international_stations">submit CLIGEN .PAR files</a> (with station statistics) to create a new climate station.</li>
@@ -20,7 +27,7 @@
                     </ul>
                 </p>
                 <p>
-                    <b>Version: <i>2.3 Update 2</i> </b>
+                    <span class="version_title">Version: <i>2.3 Update 2</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li>Slope length is now default to 50m (164ft).</li>
@@ -29,14 +36,14 @@
                     </ul>
                 </p>
                 <p>
-                    <b>Version: <i>2.3 Update 1</i> </b>
+                    <span class="version_title">Version: <i>2.3 Update 1</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li>This update provides a risk assessment (probability-based) approach to natural rangeland conditions erosion modeling, and provides the frequency of occurrence for each alternative scenario based on annual soil loss return levels.</li>
                     </ul>
                 </p>
                 <p>
-                    <b>Version: <i>2.3</i> </b>
+                    <span class="version_title">Version: <i>2.3</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li>New set of parameter estimation equations were developed to estimate the splash and sheet erodibility coefficient on natural rangeland conditions</li>
@@ -45,7 +52,7 @@
                     </ul>
                 </p>
                 <p>
-                    <b>Version: <i>2.2</i> </b>
+                    <span class="version_title">Version: <i>2.2</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li>New set of parameter estimation equations were developed for the Smith-Parlange infiltration equation</li>
@@ -56,7 +63,7 @@
                     </ul>
                 </p>
                 <p>
-                    <b>Version: <i>2.1</i> </b>
+                    <span class="version_title">Version: <i>2.1</i> </span>
                     <br /> 
                     <ul style="color:#666">
                         <li>Multiply Kss for all cases by 1.3 in order to account for the bias in the log transformation (relative to Duan 1989)</li>
@@ -66,22 +73,23 @@
                     </ul>
                 </p>
             	<p>
-                	<b>Version: <i>2.0</i> </b>
+                    <span class="version_title">Version: <i>2.0</i> </span>
                     <br /> 
                     <span style="color:#666">A prototype next-generation version (version 2) of the Rangeland Decision Support System (RHEM) is under development.</span>
 				</p>
            		<p>
-                	<b>Version: <i>1.2</i> </b>
+                   <span class="version_title">Version: <i>1.2</i> </span>
                     <br /> 
                     <span style="color:#666">Updated Kc and Tc.</span>
 				</p>
 				<p>
-                	<b>Version: <i>1.1</i></b>
+                    <span class="version_title">Version: <i>1.1</i></span>
                     <br /> 
                     <span style="color:#666">Updated model equations.</span>
 				</p>
                 <p>
-                	<b>Version: <i>1.0</i></b><br>
+                    <span class="version_title">Version: <i>1.0</i></span><br>
 				</p>
+                <p><a href="docs/">Read more about the RHEM versions</a></p>
 			</div> 
 		</div>

@@ -41,7 +41,8 @@ class Tool extends CI_Controller {
 			    $this->session->unset_userdata('stateid');
 			    $this->session->unset_userdata('climatestationid');
 			    $this->session->unset_userdata('soilid');
-			    $this->session->unset_userdata('soiltextureinput');
+                $this->session->unset_userdata('soiltextureinput');
+                $this->session->unset_userdata('sar');
 			    $this->session->unset_userdata('soilmoisture');
 			    $this->session->unset_userdata('slopelength');
 			    $this->session->unset_userdata('slopeshape');
@@ -273,7 +274,7 @@ class Tool extends CI_Controller {
 			$scenariosTableHTML .= '<th class="sort" style="width:20px;">State</th>';
 			$scenariosTableHTML .= '<th class="sort"  style="width:50px;">Climate Station</th>';
 			$scenariosTableHTML .= '<th style="width:40px;">Units</th>';
-			$scenariosTableHTML .= '<th style="width:40px;">Soil Loss <span style="font-size:10px">(ton/ac or Mg/ha per year)</span></th>';
+			$scenariosTableHTML .= '<th style="width:40px;">Soil Loss (ton/ac or ha/year)</th>';
 			$scenariosTableHTML .= '<th style="width:50px;">Alternative</th>';
 			$scenariosTableHTML .= '<th style="width:40px;">Baseline</th>';
 			$scenariosTableHTML .= '</tr>';
@@ -389,7 +390,8 @@ class Tool extends CI_Controller {
 			   'basalcover'  => $currentscenario->basal_cover,
 			   'rockcover'    => $currentscenario->rock_cover,
 			   'littercover'  => $currentscenario->litter_cover,
-			   'cryptogamscover'  => $currentscenario->cryptogams_cover,
+               'cryptogamscover'  => $currentscenario->cryptogams_cover,
+               'sar'  => $currentscenario->sar,
 			   'opened_scenario'  => true 
 		   );
 

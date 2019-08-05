@@ -79,6 +79,9 @@ class Help extends CI_Controller {
 				break;
 			case 'texture': 
 				echo 'Select a soil texture from the 12 classes of the USDA Soil Classification.';
+                break;
+            case 'salinity': 
+				echo 'An increase in sodium content in soils has a detrimental effect on aggregate strength through expansion and dispersion of soil clay particles, often leading to an increase in aggregate slaking and erosion.  The adjustment factors for RHEM are based on the work of Nouwakpo et al., Trans. ASABE, 2018, on saline soils in the Colorado River basin.  Effects of salinity on erosion is based on empirical relationships with the Sodium Adsorption Ratio (SAR) from that study.  See Publications tab in the RHEM Documentation section.<br/>Valid values are from 0 to 50.';
 				break;
 			case 'moisture_content': 
 				echo 'Defines the wetness of the soil based on a Dry (0.25), Medium (0.50), or Wet (0.75) scale. The moisture content is the percent saturation defined by the percent of the soil porosity filled by water.';

@@ -114,7 +114,7 @@ class Results extends CI_Controller {
 		echo $this->createScenarioComparisonTable($userScenariosArray,$unitsArray,true);
 		
 		// creates the averages table
-		echo $this->createScenarioAveragesTableSingle($allScenarioOutputs,$scenarioname, $unitsArray);
+		echo $this->createScenarioAveragesTableSingle($allScenarioOutputs,$scenarioid, $scenarioname, $unitsArray);
 		
 		// creates the return period table
 		echo $this->createScenarioReturnPeriodTableSingle($allScenarioOutputs, $unitsArray);
@@ -134,7 +134,7 @@ class Results extends CI_Controller {
 	 * @param   $unitsArray - an array of units (based on wheather the user selected metric or english units
 	 * @return	An HTML string with the a header and table section.
 	 */
-	function createScenarioAveragesTableSingle($allScenarioOutputs,$scenarioname, $unitsArray)
+	function createScenarioAveragesTableSingle($allScenarioOutputs,$scenarioid, $scenarioname, $unitsArray)
 	{
 		$headersArray = array('','<span style="color:' . $this->SCENARIOS_COLOR_ARRAY[0] . ';">' . $scenarioname . '</span>');
 		$resultsForCSV = array();
@@ -142,6 +142,23 @@ class Results extends CI_Controller {
 		$runoffValuesArray = array('Avg. Runoff (' . $unitsArray[1] . '/year)', number_format($allScenarioOutputs['runoffYrlyAvg'],3));
 		$sedYieldValuesArray = array('Avg. Sediment Yield (' . $unitsArray[2] . '/year)', number_format($allScenarioOutputs['sedYieldYrlyAvg'],3));
 		$soilLossValuesArray = array('Avg. Soil Loss (' . $unitsArray[2] . '/year)', number_format($allScenarioOutputs['soilLossYrlyAvg'],3));
+
+        // get the scenario inputs in order to pring Salt Load if it's a saline scenario
+        $inputs_row = $this->Rhemmodel->get_user_scenario_inputs($scenarioid);
+        if(isset($inputs_row->sar)){
+            // TDS (g) = 2.36 * [Soil Loss (Kg)] + 0.99 - Equation from Kossi
+            if($unitsArray[1] == 'inches'){
+                // convert soil loss back to metric > to kg > after calculating initial TDS divide by 1000 to get from g to kg
+                $TDS = (2.36 * ( ( $allScenarioOutputs['soilLossYrlyAvg'] / 0.446 ) * 1000 ) + 0.99)/1000;
+                // convert to lbs (* 2.20462) and to acres (/2.471)
+                $TDS = ($TDS * 2.20462)/2.471;
+            }
+            else{
+                // report in kg
+                $TDS = (2.36 * ( $allScenarioOutputs['soilLossYrlyAvg'] * 1000 ) + 0.99)/1000;
+            }
+            $saltloadValuesArray = array('Salt Load (' . $unitsArray[5] . ')', number_format($TDS,3));
+        }
 
 		// add this a header for the current return period to the CSV results array
 		array_push($resultsForCSV,array('AVERAGE ANNUAL RESULTS'));
@@ -152,14 +169,21 @@ class Results extends CI_Controller {
 		$this->table->add_row($precipValuesArray);
 		$this->table->add_row($runoffValuesArray);
 		$this->table->add_row($sedYieldValuesArray);
-		$this->table->add_row($soilLossValuesArray);
+        $this->table->add_row($soilLossValuesArray);
+        if(isset($inputs_row->sar)){
+            $this->table->add_row($saltloadValuesArray);
+        }
 		
 		// add to table that will be added to the csv file
 		array_push($resultsForCSV,$precipValuesArray);
 		array_push($resultsForCSV,$runoffValuesArray);
 		array_push($resultsForCSV,$sedYieldValuesArray);
-		array_push($resultsForCSV,$soilLossValuesArray);
-		
+        array_push($resultsForCSV,$soilLossValuesArray);
+        if(isset($inputs_row->sar)){
+            array_push($resultsForCSV,$saltloadValuesArray);
+        }
+        
+        
 		// add results to the csv report
 		$this->addToCSVReport($resultsForCSV);
 		
@@ -350,7 +374,11 @@ class Results extends CI_Controller {
 		$runoffValuesArray = array('Avg. Runoff (' . $unitsArray[1] . '/year)');
 		$sedYieldValuesArray = array('Avg. Sediment Yield (' . $unitsArray[2] . '/year)');
 		$soilLossValuesArray = array('Avg. Soil Loss (' . $unitsArray[2] . '/year)');
-		
+        
+        // prepare the salt load array in case any of the scnarios are saline
+        $saltloadValuesArray = array('Salt Load (' . $unitsArray[5] . ')');
+        $salineScenariosExist = FALSE;
+                
 		// add this a header for the current return period to the CSV results array
 		array_push($resultsForCSV,array('AVERAGE ANNUAL RESULTS'));
 
@@ -363,20 +391,48 @@ class Results extends CI_Controller {
 			array_push($runoffValuesArray, number_format($yearlyAvgArray[$scenario_id]['runoffYrlyAvg'],3));
 			array_push($sedYieldValuesArray, number_format($yearlyAvgArray[$scenario_id]['sedYieldYrlyAvg'],3));
 			array_push($soilLossValuesArray, number_format($yearlyAvgArray[$scenario_id]['soilLossYrlyAvg'],3));
-			$i++;
+          
+            // get the scenario inputs in order to pring Salt Load if it's a saline scenario
+            $inputs_row = $this->Rhemmodel->get_user_scenario_inputs($scenario_id);
+            if(isset($inputs_row->sar)){
+                $salineScenariosExist = TRUE;
+                // TDS (g) = 2.36 * [Soil Loss (Kg)] + 0.99 - Equation from Kossi
+                if($unitsArray[1] == 'inches'){
+                    // convert soil loss back to metric > to kg > after calculating initial TDS divide by 1000 to get from g to kg
+                    $TDS = (2.36 * ( ($yearlyAvgArray[$scenario_id]['soilLossYrlyAvg'] / 0.446) * 1000 ) + 0.99)/1000;
+                    // convert to lbs (* 2.20462) and to acres (/2.471) => lbs/ac/year
+                    $TDS = ($TDS * 2.20462)/2.471;
+                }
+                else{
+                    // report in kg/ha/year
+                    $TDS = (2.36 * ( $yearlyAvgArray[$scenario_id]['soilLossYrlyAvg'] * 1000 ) + 0.99)/1000;
+                }
+                array_push($saltloadValuesArray, number_format($TDS,3));
+            }
+            else{
+                array_push($saltloadValuesArray, "");
+            }
+            
+            $i++;
 		}
 		
 		$this->table->set_heading($headersArray);
 		$this->table->add_row($precipValuesArray);
 		$this->table->add_row($runoffValuesArray);
 		$this->table->add_row($sedYieldValuesArray);
-		$this->table->add_row($soilLossValuesArray);
+        $this->table->add_row($soilLossValuesArray);
+        if($salineScenariosExist == TRUE){
+            $this->table->add_row($saltloadValuesArray);
+        }
 		
 		// add to table that will be added to the csv file
 		array_push($resultsForCSV,$precipValuesArray);
 		array_push($resultsForCSV,$runoffValuesArray);
 		array_push($resultsForCSV,$sedYieldValuesArray);
-		array_push($resultsForCSV,$soilLossValuesArray);
+        array_push($resultsForCSV,$soilLossValuesArray);
+        if($salineScenariosExist == TRUE){
+            array_push($resultsForCSV,$saltloadValuesArray);
+        }
 		
 		// add results to the csv report
 		$this->addToCSVReport($resultsForCSV);
@@ -569,11 +625,13 @@ class Results extends CI_Controller {
 	{
 		// array to hold input parameters from the interface for each scenario selected
 		// removed version on 4/1/2014. To add it back add ,array('Version') to the $inputParamsArray and push the $versionNumber to the table
-		$inputParamsArray = array(array(''), array('Version'), array('State ID'),array('Climate Station'),array('Soil Texture'),array('Soil Water Saturation %'),array('Slope Length ' . '(' . $unitsArray[3] . ')'),
+		$inputParamsArray = array(array(''), array('Version'), array('State ID'),array('Climate Station'),array('Soil Texture'),array('SAR'), array('Soil Water Saturation %'),array('Slope Length ' . '(' . $unitsArray[3] . ')'),
 					  array('Slope Shape'),array('Slope Steepness %'),array('Bunch Grass Foliar Cover %'),array('Forbs and/or Annual Grasses Foliar Cover %'),array('Shrubs Foliar Cover %'),array('Sod Grass Foliar Cover %'),array('Total Foliar Cover %'),array('Basal Cover %'),array('Rock Cover %'),array('Litter Cover %'), array('Biological Crusts Cover %'), array('Total Ground Cover %'));
 		$headersArray = array('');
-	
-		$i = 0;
+    
+        $salineScenariosExist = FALSE;
+    
+        $i = 0;
 		foreach ($userScenariosArray as $scenario_id => $scenario_name)
 		{
 		    // get the user scenario inputs for the current scenario
@@ -589,24 +647,31 @@ class Results extends CI_Controller {
 			array_push($inputParamsArray[2], strtoupper($inputs_row->state_id));
 			array_push($inputParamsArray[3], ucwords(strtolower($inputs_row->station)));
 			array_push($inputParamsArray[4], $inputs_row->class_name);
-			array_push($inputParamsArray[5], $inputs_row->soil_moisture);
-			array_push($inputParamsArray[6], $inputs_row->slope_length);
-			array_push($inputParamsArray[7], $inputs_row->shape_name);
-			array_push($inputParamsArray[8], $inputs_row->slope_steepness);
-			array_push($inputParamsArray[9], $inputs_row->bunchgrass_canopy_cover);
-			array_push($inputParamsArray[10], $inputs_row->forbs_canopy_cover);
-			array_push($inputParamsArray[11], $inputs_row->shrubs_canopy_cover);
-			array_push($inputParamsArray[12], $inputs_row->sodgrass_canopy_cover);
+			if(isset($inputs_row->sar)){
+                array_push($inputParamsArray[5], $inputs_row->sar);
+                $salineScenariosExist = TRUE;
+            }
+            else{
+                array_push($inputParamsArray[5], "");
+            }
+			array_push($inputParamsArray[6], $inputs_row->soil_moisture);
+			array_push($inputParamsArray[7], $inputs_row->slope_length);
+			array_push($inputParamsArray[8], $inputs_row->shape_name);
+			array_push($inputParamsArray[9], $inputs_row->slope_steepness);
+			array_push($inputParamsArray[10], $inputs_row->bunchgrass_canopy_cover);
+			array_push($inputParamsArray[11], $inputs_row->forbs_canopy_cover);
+			array_push($inputParamsArray[12], $inputs_row->shrubs_canopy_cover);
+			array_push($inputParamsArray[13], $inputs_row->sodgrass_canopy_cover);
 
 			$canopycover = $inputs_row->bunchgrass_canopy_cover + $inputs_row->forbs_canopy_cover + $inputs_row->shrubs_canopy_cover + $inputs_row->sodgrass_canopy_cover;
-			array_push($inputParamsArray[13], $canopycover);
+			array_push($inputParamsArray[14], $canopycover);
 
-			array_push($inputParamsArray[14], $inputs_row->basal_cover);
-			array_push($inputParamsArray[15], $inputs_row->rock_cover);
-			array_push($inputParamsArray[16], $inputs_row->litter_cover);
-			array_push($inputParamsArray[17], $inputs_row->cryptogams_cover);
+			array_push($inputParamsArray[15], $inputs_row->basal_cover);
+			array_push($inputParamsArray[16], $inputs_row->rock_cover);
+			array_push($inputParamsArray[17], $inputs_row->litter_cover);
+			array_push($inputParamsArray[18], $inputs_row->cryptogams_cover);
 			$groundcover = $inputs_row->basal_cover + $inputs_row->litter_cover + $inputs_row->cryptogams_cover + $inputs_row->rock_cover;
-			array_push($inputParamsArray[18], $groundcover);
+			array_push($inputParamsArray[19], $groundcover);
 			$i++;
 		}
 		
@@ -617,7 +682,11 @@ class Results extends CI_Controller {
 		// add all the rows to the table
 		for($i =0; $i<count($inputParamsArray); $i++){
 			if($i == 0)
-				$this->table->set_heading($inputParamsArray[$i]);
+                $this->table->set_heading($inputParamsArray[$i]);
+            elseif($i == 5){
+                if($salineScenariosExist == TRUE)
+                    $this->table->add_row($inputParamsArray[$i]);
+            }
 			else
 				$this->table->add_row($inputParamsArray[$i]);
 		}
@@ -628,10 +697,13 @@ class Results extends CI_Controller {
 		$this->table->clear();
 		
 		if($buildCSVFlag){
+            // remove the SAR input, if no saline scenario present
+            if($salineScenariosExist == FALSE)
+                unset($inputParamsArray[5]);
 			// create a new CVS file and add the input parameters for the selected scenarios
 			$this->createCSVReport($inputParamsArray);
 		}
-		return $tableHeaderTitle . $htmlTable . '<script>styleInputParameterTable()</script>';
+		return $tableHeaderTitle . $htmlTable . '<script>styleInputParameterTable();</script>';
 	}
 	
 	/**
@@ -1109,10 +1181,10 @@ class Results extends CI_Controller {
 		$unitsRS = $this->Rhemmodel->getScenarioUnits($scenarioid);
 		$scenarioUnits = $unitsRS->units;
 		
-		$unitsArray = array($scenarioUnits,'mm','Mg/ha','meters','mm/hr');
+		$unitsArray = array($scenarioUnits,'mm','Mg/ha','meters','mm/hr', 'kg/ha/year');
 		
 		if($scenarioUnits == 'english'){
-			$unitsArray = array($scenarioUnits,'inches','ton/ac','feet','inches/hr');
+			$unitsArray = array($scenarioUnits,'inches','ton/ac','feet','inches/hr','lbs/ac/year');
 		}
 		return $unitsArray;
 	}

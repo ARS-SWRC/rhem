@@ -67,7 +67,7 @@ class Run extends CI_Controller {
 	 * PURP: contorl
 	 */
 	function runScenario($saveScenarioAction, $scenarioname,$units, $stateid,$climatestation, $soiltexture,$modsoilflag,
-						 $slopelength,$slopeshape,$slopesteepness,$bunchgrasscanopycover,$forbscanopycover,$shrubscanopycover,$sodgrasscanopycover,$basalcover,$rockcover, $littercover, $cryptogamscover)
+						 $slopelength,$slopeshape,$slopesteepness,$bunchgrasscanopycover,$forbscanopycover,$shrubscanopycover,$sodgrasscanopycover,$basalcover,$rockcover, $littercover, $cryptogamscover, $sar_value)
 	{
 		$scenariodata['user_id'] = $this->session->userdata('user_id');
 		$scenariodata['scenario_name'] = $scenarioname;
@@ -100,7 +100,8 @@ class Run extends CI_Controller {
 		$scenariodata['cryptogams_cover'] = $cryptogamscover;
 		$scenariodata['rock_cover'] = $rockcover;
 		$scenariodata['litter_cover'] = $littercover;
-		$scenariodata['scenario_date'] = date("Y-m-d H:i:s");
+        $scenariodata['scenario_date'] = date("Y-m-d H:i:s");
+        $scenariodata['sar'] = $sar_value;
 	
 		$currentScenarioID = 0;
 		// first save the current scenario in order for user to retrieve it later
@@ -127,7 +128,7 @@ class Run extends CI_Controller {
 			}
 			else{
 				$Ke = $this->buildParametersFile($scenarioname,$units,$soiltexture,$bunchgrasscanopycover,$forbscanopycover,$shrubscanopycover,$sodgrasscanopycover,
-											 $rockcover, $basalcover, $littercover,$cryptogamscover,$slopelength,$slopeshape,$slopesteepness, $scenariodata['version'] );
+											 $rockcover, $basalcover, $littercover,$cryptogamscover,$slopelength,$slopeshape,$slopesteepness, $sar_value, $scenariodata['version'] );
 			}
 		}
 		else{
@@ -397,7 +398,7 @@ class Run extends CI_Controller {
 	 * @return	Ke - the calculated Ke value
 	 */
 	function buildParametersFile($scenarioname,$units,$soiltexture,$bunchgrasscanopycover,$forbscanopycover,$shrubscanopycover,$sodgrasscanopycover,
-								 $rockcover, $basalcover, $littercover,$cryptogamscover,$slopelength,$slopeshape,$slopesteepness, $modelversion)
+								 $rockcover, $basalcover, $littercover,$cryptogamscover,$slopelength,$slopeshape,$slopesteepness, $sar_value, $modelversion)
 	{
 		// convert to percent values
 		$bunchgrasscanopycover = $bunchgrasscanopycover/100;
@@ -626,6 +627,14 @@ class Run extends CI_Controller {
 
 		$Kss_Final = ($Kss_Final * 1.3) * 2.0;
 
+        if($sar_value != ""){
+            // first version of the equation from Kossi
+            //$Kss_Final = $Kss_Final + (642 * $sar_value);
+            // Kss = KssRHEM + ( f*SAR ), the value of f is 642
+            // Update version of the equation by Kossi
+            $Kss_Final = $Kss_Final + (711 * $sar_value);
+        }
+        
 		# changes units back to metric when english is selected
 		if($units == 'english'){
 			$slopelength = $slopelength * 0.3048;

@@ -36,7 +36,7 @@
 			<span class="grey">
 			<?php echo 'Now:       '. date('D, M d Y') ."\n"; ?>
 			</span>
-			<span class="grey" style="margin-left: 40px;">Current Version: RHEM v2.3 Update 4</span>
+			<span class="grey" style="margin-left: 40px;">Current Version: RHEM v2.3 Update 5</span>
 		</div>
         
 

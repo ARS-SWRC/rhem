@@ -1,7 +1,5 @@
 	<?php include 'head.php';?>
     <link rel="stylesheet" href="assets/css/impromptu.css" type="text/css" media="screen" charset="utf-8" />
-    <!--<link rel="stylesheet" type="text/css" href="assets/scripts/jDraggable/dragtable.css" />-->
-
 </head>
 <body>
 	<div class="content">
@@ -142,6 +140,14 @@
                     ?>
                 </select>
                 <a class="help_lnk" rel="popover" data-poload="help/getstring/texture" data-original-title="Soil Texture"></a>
+                <br/>
+                <label class="rhem_label_short" for="salinity_checkbox" style="width: 115px;">Saline? (optional):</label>
+                <input class="form-check-input" type="checkbox" id="salinity_checkbox" onclick="$('#sar_input').toggle();$('#sar_value').val('');" style="margin-top:-5px;" <?php if($this->session->userdata('sar')!='')echo "checked";?>>
+                <a class="help_lnk" rel="popover" data-poload="help/getstring/salinity" data-original-title="Salinity option"></a>
+                <div style="display:<?php if($this->session->userdata('sar')==''){echo 'none';}else{echo 'block';}?>;" id="sar_input">
+                    <label for="sar_value">SAR:</label>
+				    <input type="text" id="sar_value" style="width: 60px;" class="alphanumericCheck2 tb" <?php if($this->session->userdata('sar')!='')echo "value=" . $this->session->userdata('sar');?>>
+                </div>
 			</div>
 		    <!--   DEFINE SLOPE  -->
 			<h2 class="toggle_off"  id="slope_panel">
@@ -338,6 +344,5 @@
         <script type="text/javascript" src="assets/scripts/jquery.plugin.html2canvas.js"></script>
         <script type="text/javascript" src="assets/scripts/drhem.js?updated=<?php echo time();?>"></script>
         <script type="text/javascript" src="assets/scripts/jquery.jeditable-1.7.1.mini.js"></script>
-        <!--<script src="assets/scripts/jDraggable/jquery.dragtable.js"></script>-->
 </body>
 </html>

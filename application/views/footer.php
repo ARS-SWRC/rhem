@@ -1,7 +1,7 @@
 		<div class="footer">
         	<div class="inside">
         		<p><a href=".">Home</a> | <a href="about">About</a> | <a href="docs">Documentation</a> | <a href="contact">Contact Us</a> <br />
-        		&copy; Copyright 2013 <a href="http://tucson.ars.ag.gov/"><b>SWRC-ARS-USDA</b></a></p>
+        		&copy; Copyright <a href="https://www.tucson.ars.ag.gov/"><b>SWRC-ARS-USDA</b></a></p>
         	</div>
         	<div class="tr"></div>
         	<div class="tl"></div>

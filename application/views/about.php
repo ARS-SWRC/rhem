@@ -31,18 +31,28 @@
 				grouping.  Hence currently, the model may be parameterized and executed for undisturbed rangeland conditions.</p>
 			</div>
 			<div class="subcontent_item">
-				<h4>Capabilities <span class="blue">In Progress</span></h4>
+				<h4>Additional <span class="blue">Capabilities</span></h4>
 				<p>
 					<ul>
 						<li>Parameter estimation procedures for the remaining infiltration, runoff, and erosion parameters, which include concentrated 
-						flow erodibilities and hydraulic friction factors are underway.  Once these procedures are in place, the model will be capable 
-						of representing infiltration, runoff, and erosion on both undisturbed and disturbed rangeland hillslopes.</li>   
-						<li>Procedures will be developed to specifically execute model predictions for NRI data, such that a user may estimate runoff 
+						flow erodibilities and hydraulic friction factors capable of representing infiltration, runoff, and erosion on undisturbed 
+                        rangeland hillslopes.</li>   
+						<li>Procedures have been developed to specifically execute model predictions for NRI data, such that a user may estimate runoff 
 						and erosion rates for single storms at NRI sites.</li>  
-						<li>A risk assessment methodology will be developed that calculates the risk of various sized erosion events occurring at a site 
+						<li>A risk assessment methodology has been developed that calculates the risk of various sized erosion events occurring at a site 
 						of interest in its current or assumed condition.</li>  
 						<li>The risk assessment methodology using return frequency storm values will be further refined to calculate the risk of various 
 						sized erosion events occurring at a site of interest in its current or assumed condition.</li>  
+					</ul>
+				</p>
+            </div>
+            <div class="subcontent_item">
+                <h4>Capabilities <span class="blue">In Progress</span></h4>
+				<p>
+					<ul>
+						<li>Parameter estimation procedures for the infiltration, runoff, and erosion parameters, which include concentrated 
+						flow erodibilities and hydraulic friction factors are underway for disturbed rangeland hillslopes.</li>   
+						<li>Implemention the CLIGrid featue which will enable RHEM to use storm inputs from pre-ran CLIGEN scenario runs for CONUS at a 4km scale.</li>  
 					</ul>
 				</p>
 			</div>

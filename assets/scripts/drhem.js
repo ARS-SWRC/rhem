@@ -17,7 +17,15 @@
 var APPROOT = "https://apps.tucson.ars.ag.gov/rhem/";
 var TIMER;
 
-// on-page-load initializations
+// attach events as soon as the document is ready
+$(document).ready(function(e) {
+	attachPopupEvents();
+	attachUIElementEvents();
+	// TODO: Add aphanumeric checks 
+	$('.alphanumericCheck2').alphanumeric({allow:".-_, "});
+});
+
+// initialization when the document finishes loading
 $(window).load(function () {
     // confirm before closing window to prevent scenario data loss
     preventWindowClose();
@@ -50,15 +58,6 @@ function preventWindowClose(){
 	//	return 'You have unsaved work. Would you really like to close the window?';
 	//}
 }
-
-
-// on-page-load initialize the popover plugin
-$(document).ready(function(e) {
-	attachPopupEvents();
-	attachUIElementEvents();
-	// TODO: Add aphanumeric checks 
-	$('.alphanumericCheck2').alphanumeric({allow:".-_, "});
-});
 
 /**
 * Attach event handlers to popups that will be use to provide help 
@@ -188,14 +187,6 @@ function loadComparisonTableInteraction(){
 	// table row highlights
 	enableTableRowHighlights();
 
-/*****************/
-	// TODO: Complete this section for the user to be able to keep track of the order of selected scenarios
-	//  Algorithm:
-	//       - assign an index to each of the clicked checkboxes
-	//       - if the first 0 index is clicked on, update (-1) all other checkboxes above this
-	//       - if the last checkbox is clicked (i is last value), do nothing
-	//       - if an in-between checkbox is clicked (0, 1, 2, 3....1 for example), -1 on all checkboxes after 1, and decrement the index by 1
-	//
 	// Define an index to be used to keep track of the order in which the user selected the scenarios
 	var orderIndex = 0;
 
@@ -235,16 +226,6 @@ function loadComparisonTableInteraction(){
 					}
 				})
 			}
-
-			// query all of the checkboxes that have an order attribute
-			/*$(this).parent().parent().find("td:last-child").find('input[type=checkbox]').each(function(index, element){
-				if($(element).attr('order')){
-	
-					console.log("Index = " + index + "   Element = " + element);
-					}
-				}
-			});*/
-			//$(this).find('input[type=checkbox]');
 		}
 		else{
 			console.log("Else");
@@ -263,10 +244,6 @@ function loadComparisonTableInteraction(){
 		else
 			$(this).prop('checked', true);
 	});
-/*****************/
-
-
-
 
 	// set the table sorter for the table
 	$("#scenariosTable").tablesorter(); 
@@ -486,28 +463,19 @@ function doRun(saveOrUpdate){
 	var rockcover = $("#rockcover").val();
 	var littercover = $("#littercover").val();
 	var cryptogamscover = $("#cryptogamscover").val();
-
+    var sar_value = $("#sar_value").val();
 	// show model running progress
 	hideAllContent();
-	
 	
 	if($("#editPARfilelink").length > 0){
 		// send a false flag to the editsoil controller to reset the modify PAR file dialog
 		var modifiedPARfileurl = $("#editPARfilelink").attr('href').replace("true","false");
 		$("#editPARfilelink").attr('href', modifiedPARfileurl);
 	}
-	
-	//TODO: figure out how to use the $.prompt to show the user that a scneario is running
-	//      This is useful since the user might have scrolled to the bottom of the page and they might not be able to see
-	//      that a scenario is already running
-	// $.prompt('Please select scenarios to compare.' ,{ buttons: { Ok: true } , overlayspeed:'fast'} );
 
 	// set the timer 
 	TIMER = new Date().getTime();
 	
-	//$('#progressBar').show();
-
-	//$('#progressBar').append('<p>Running scenario...</p>');
 	$('#progressBar').hide();
 	$.prompt('<div id="progressBarRunning"><p>Running scenario...</p></div>',
 	{ buttons: {} , 
@@ -523,9 +491,8 @@ function doRun(saveOrUpdate){
 	$.post("run/runScenario/" + saveOrUpdate + "/" + scenarioname + "/"  + units + "/" + stateid + "/" + climatestationid + "/" + soiltexture + "/" + 
 								modsoilflag + "/" + slopelength + "/" +  slopeshape + "/" + slopesteepness + "/" + 
 								bunchgrasscanopycover + "/" + forbscanopycover + "/" + shrubscanopycover + "/" + sodgrasscanopycover + "/" +
-								basalcover + "/" + rockcover + "/" + littercover + "/" + cryptogamscover,{scenarioDescription: scenariodescription}, function(scenarioRunInformation){
+								basalcover + "/" + rockcover + "/" + littercover + "/" + cryptogamscover + "/" + sar_value, {scenarioDescription: scenariodescription}, function(scenarioRunInformation){
 		if(scenarioRunInformation.length > 0) {
-			//console.log("runArray: " + scenarioidran);
 			// this run array has information about the current scenario by the user
 			// param1: scenarioid, param2: pid, param3: userid
 			var runArray = scenarioRunInformation.split("-");
@@ -545,34 +512,21 @@ function checkIfProcessFinished(scenarioidran,pid,userid) {
             method: 'GET',
             async: true,
             success: function(data) {
-            	//console.log("PID lines: " + data);
                 if (data == "3") {
                 	// wait 5 seconds before checking again for scenario run status
                 	setTimeout(function(){ 
                 		checkProcess(pid);
-						//console.log("Running again...");
 					}, 5000);
                 }
                 else{
-                	//console.log("Done message...");
                 	$('#progressBarRunning').append('<p>Done running scenario.</p>');
 					$('#progressBarRunning').append('<p>Saving scenario...</p>');
 					$('#progressBarRunning').append('<p>Creating output table...</p>');
-					///$('#progressBarRunning').append('<p>Done running scenario.</p>');
-					//$('#progressBarRunning').append('<p>Saving scenario...</p>');
-					//$('#progressBarRunning').append('<p>Creating output table...</p>');
-
-					//console.log("Saving scenarios...");
 
 					saveScenarioResultsTable(scenarioidran);
 
 					cleanScenarioOuputs(scenarioidran, userid);
-					//console.log("Saved scenario...");
-					//$('#progressBarRunning').hide();
 					$.prompt.close();
-					//$('#progressBarRunning').append('');
-
-					//console.log("Window closed...");
                 }
             }
         });
@@ -691,7 +645,6 @@ function printUserScenariosToCompare()
 	}); 
 }
 
-
 /////////////////
 //  Collects the list of selected scenarios (with the same units) in order to create a comparison report
 /////////////////
@@ -746,15 +699,12 @@ function runCompareScenarios()
 	}
 }
 
-
 ////////////////
 // Sorts a list based on the order attribute
 ////////////////
 function sorter(a, b) {
     return a.getAttribute('order') - b.getAttribute('order');
 };
-
-
 
 /////////////////
 //  Activates the result container tab functionality.
@@ -794,7 +744,6 @@ function enableDowloadableImages()
         //alert($this.attr('src') )
     });
 }
-
 
 /////////////////
 //  Activates the result container tab functionality.
@@ -950,8 +899,8 @@ function validateScenario(){
 	//var stateid = $("#stateid").val();
 	//var climatestationid = $("#climatestationid").val();
     var soiltexture = $("#soiltexture").val();
-    //var salinesoil_flag = $("#salinity_checkbox").is(":checked");
-    //var salinesoil_sar = $("#sar_input").val();
+    var salinesoil_flag = $("#salinity_checkbox").is(":checked");
+    var salinesoil_sar = $("#sar_value").val();
 	var slopelength = $("#slopelength").val();
 	var slopeslopesteepness = $("#slopesteepness").val();
 	var bunchgrasscanopycover = $("#bunchgrasscanopycover").val();
@@ -972,8 +921,9 @@ function validateScenario(){
 	message += (climatestationid == ''?"<li>Please select a climate station.</li>":'');
 	message += (soiltexture == ''?"<li>Please select a soil texture.</li>":'');
     
-    //message += (salinesoil_flag == true && salinesoil_sar == ''?"<li>You specified that this is a saline scenario, but did not specify an SAR value.</li>":'');
-    
+    message += ((salinesoil_flag == true && salinesoil_sar == '')?"<li>You specified that this is a saline scenario, but did not specify an SAR value.</li>":'');
+    message += (!$.isNumeric(salinesoil_sar) || (salinesoil_sar < 0 || salinesoil_sar > 50) ?"<li>Please enter a numeric SAR value between 0 and 50.</li>":'');
+
 	// check for the slope length (under 120m or 395ft)
 	compareSlopeLength = 120;
 	unitsForSlopelength = "m";
@@ -1037,6 +987,9 @@ function clearScenario()
 					$("#cryptogamscover").val('');
 					$("#littercover").val('');
 
+                    $("#salinity_checkbox").prop('checked', false);
+                    $("#sar_input").hide();
+                    $("#sar_value").val('');
 					
 					// show the welcome page
 					toggleContent('#welcomeMessage');
@@ -1141,33 +1094,6 @@ function redirectToLogin()
 				}
 			}
 	});
-}
-
-/////////////////
-//  Saves the comparison report as an image and passes it on to the server so that it can be persisted to 
-//  the file system
-//  TODO: Remove this verison of the function
-/////////////////
-function saveComparisonReportAsImage2()
-{
-	$('#resultsContainer').html2canvas({
-		//profile: true,
-        //useCORS: true,
-        //allowTaint: true,
-        onrendered: function (canvas) {
-        	//document.body.appendChild(canvas);
-        	encodedImage = canvas.toDataURL("image/png").split(",")[1];
-        	console.log(encodedImage);
-            // send the canvas image to the server so that it can be saved
-			$.post("results/createPDFReport/",{img_val: encodedImage}, function(data){
-				if(data.length > 0) {
-					//$("#returnPeriodChart").attr("src", APPROOT + 'temp/return_periods_graph_' + parseInt(userid) + '.png' + "?" + (new Date()).getTime());
-					//$('#resultsGraph').fadeIn("fast");
-					window.open(APPROOT + 'temp/' + data);
-				}
-			});
-        }
-    });
 }
 
 /////////////////

@@ -1,12 +1,9 @@
 /* project: RHEM Web Tool
    author: Gerardo Armendariz
-   date: 2-19-2013
 */
 
-   
 /* default styles
    -------------- */
-   
 body { 
 	margin: 0; 
 	font: 1em "Trebuchet MS",Arial,Tahoma,Sans-serif; /*Arial, Helvetica, sans-serif; */
@@ -599,6 +596,11 @@ input.login {
 	font-size: 14px;
 }
 
+.right_panel .version_title{
+    font-weight: bold;
+    color: #6E6E6E
+}
+
 .run_button{
 	margin-top: 5px;
 }
@@ -632,7 +634,7 @@ input.login {
 }
 .scroll-pane{
 	width: 245px;
-	height: 140px;
+	height: 240px;
 	overflow: auto;
 }  
 .scroll-pane ul{
@@ -764,13 +766,13 @@ th {
 	text-transform: uppercase;
 	text-align: center ;
 	/*padding: 6px 6px 6px 12px;*/
-	background-color: #F4F4F4;
+	background-color: #F2F4F8;
 	height:40px;
 	cursor:pointer;
 }
 
 th.sort{
-background: #F4F4F4 url('../images/sort.gif') no-repeat center right;
+background: #F2F4F8 url('../images/sort.gif') no-repeat center right;
 padding-right:15px;
 }
 
@@ -850,7 +852,7 @@ span.editable{
 
 /* toggle button */
 span.toggleButton{
-	color:#FFFFFF; /*#F4F4F4;    BF6B1A*/
+	color:#FFFFFF;
 	/*background: #FFFFFF url(../images/tab.gif) no-repeat scroll 0 0;*/
 	width:445px;
 	border-radius: 15px 15px 0px 0px;
@@ -925,7 +927,7 @@ a.jt{
 }
 .nav-pills .active a:hover{
 	background-color:#4A8EBC;
-}
+}`
 
 /****  Return Period Functionality *******/
 
@@ -943,7 +945,7 @@ a.jt{
 }
 
 .rp_table th{
-  background-color:#F4F4F4;
+  background-color:#F2F4F8;
 }
 
 .rp_table tr:first-child th{
@@ -979,7 +981,7 @@ a.jt{
     border-right: 1px solid #E4E4E4 !important;
     text-transform: uppercase;
     text-align: center;
-    background-color: #F4F4F4 !important;
+    background-color: #F2F4F8 !important;
     height: 45px !important;
     cursor: pointer;
     vertical-align:bottom;

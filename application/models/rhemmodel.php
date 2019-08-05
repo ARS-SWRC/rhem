@@ -248,7 +248,7 @@ class Rhemmodel extends CI_Model
 	 */
 	function get_user_scenario_inputs($scenarioid)
 	{
-		$query = $this->db->query("SELECT us.state_id, us.version, cs.station, st.class_name, us.slope_length, ss.shape_name, us.slope_steepness, 
+		$query = $this->db->query("SELECT us.state_id, us.version, cs.station, st.class_name, us.sar, us.slope_length, ss.shape_name, us.slope_steepness, 
 								   us.soil_moisture, us.bunchgrass_canopy_cover, us.forbs_canopy_cover,us.shrubs_canopy_cover,us.sodgrass_canopy_cover, us.basal_cover, us.rock_cover, us.litter_cover, us.cryptogams_cover, us.scenario_date
 								   FROM user_scenarios us
 								   JOIN climate_stations AS cs ON us.station_id = cs.station_id
