@@ -901,6 +901,7 @@ function validateScenario(){
     var soiltexture = $("#soiltexture").val();
     var salinesoil_flag = $("#salinity_checkbox").is(":checked");
     var salinesoil_sar = $("#sar_value").val();
+    console.log(salinesoil_flag + "|" + salinesoil_sar)
 	var slopelength = $("#slopelength").val();
 	var slopeslopesteepness = $("#slopesteepness").val();
 	var bunchgrasscanopycover = $("#bunchgrasscanopycover").val();
@@ -922,7 +923,7 @@ function validateScenario(){
 	message += (soiltexture == ''?"<li>Please select a soil texture.</li>":'');
     
     message += ((salinesoil_flag == true && salinesoil_sar == '')?"<li>You specified that this is a saline scenario, but did not specify an SAR value.</li>":'');
-    message += (!$.isNumeric(salinesoil_sar) || (salinesoil_sar < 0 || salinesoil_sar > 50) ?"<li>Please enter a numeric SAR value between 0 and 50.</li>":'');
+    message += ( salinesoil_flag == true && (!$.isNumeric(salinesoil_sar) || (salinesoil_sar < 0 || salinesoil_sar > 50) ) ?"<li>Please enter a numeric SAR value between 0 and 50.</li>":'');
 
 	// check for the slope length (under 120m or 395ft)
 	compareSlopeLength = 120;

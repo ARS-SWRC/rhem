@@ -138,16 +138,16 @@ Approach for Predicting Soil Loss on Rangelands</a></li>
 					</div>
 					<div class="tab-pane" id="tab5">
 						<h4>RHEM Batch Script</h4>
-						<p>After many requests from our users, we now have the ability to run RHEM in batch mode based on the RHEM Model-as-a-Service (MaaS) using the Cloud Services Innovation Platform (CSIP). More inormation about MaaS and CSIP can be read in <a href="https://digitalcommons.tacoma.uw.edu/cgi/viewcontent.cgi?article=1012&context=tech_pub">this publication</a>. This functionality enables you to run RHEM with multiple scenarios in batch format using a Python script. In order for you to run RHEM in batch mode, you are required to:
+						<p>This script is able to run RHEM in batch mode based on the RHEM Model-as-a-Service (MaaS) using the Cloud Services Innovation Platform (CSIP). More inormation about MaaS and CSIP can be read in <a href="https://digitalcommons.tacoma.uw.edu/cgi/viewcontent.cgi?article=1012&context=tech_pub">this publication</a>. This functionality enables you to run RHEM with multiple scenarios in batch format using a Python script. In order for you to run RHEM in batch mode, you are required to have:
 							<ol>
-								<li>Have an internet enabled computer</li>
-								<li>Install Python</li>
-								<li>Install pip or conda (Python package installers)</li>
-								<li>Install Excel</li>
+								<li>An internet-enabled computer</li>
+								<li>Python 3</li>
+								<li>pip or conda (Python package installers)</li>
+								<li>Spredsheet editing software (Excel, OpenOffice, Google Sheets, etc.)</li>
 							</ol>
 						</p>
 						<p>
-							The workflow to run the script will be as follows:
+							The workflow to run the script:
 							<ol>
 								<li>Download the script, the template spreadsheet, and the requirements.txt file (this is used to install required Python packages) from this location: <a href="https://github.com/ARS-SWRC/rhem_batch_csip">https://github.com/ARS-SWRC/rhem_batch_csip</a></li>
 								<li>Install the Python dependencies (from the requirements.txt file)</li>

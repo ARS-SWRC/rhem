@@ -108,6 +108,7 @@
 							<option value="40250" <?php if($this->session->userdata('climatestationid') == "40250") echo ' selected="selected"'; ?> >H4 JOR</option>
 							<option value="40310" <?php if($this->session->userdata('climatestationid') == "40310") echo ' selected="selected"'; ?> >Ma&rsquo;An JOR</option>
 							<option value="40400" <?php if($this->session->userdata('climatestationid') == "40400") echo ' selected="selected"'; ?> >China Xinganghan</option>
+                            <option value="40400" <?php if($this->session->userdata('climatestationid') == "40500") echo ' selected="selected"'; ?> >Mexico Saltillo</option>
 						</select>
 						<br/>
 						<a href="#" id="showInternationalClimateStations" style="margin-left:95px;"><i class="icon-map-marker" style="opacity:0.7"></i>Show Map</a> 

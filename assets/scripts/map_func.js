@@ -207,9 +207,9 @@ function show_international_climate_stations(stateid){
 						}
 
 						// set center and extent
-						statezoom = new google.maps.LatLng(34.56,76.01);
+						statezoom = new google.maps.LatLng( 25.380064,7.220526);
 						gmap.setCenter(statezoom);
-						gmap.setZoom(3);
+						gmap.setZoom(2);
 						
 					}
 				}
@@ -222,7 +222,9 @@ function show_international_climate_stations(stateid){
 // Creates the content of the infowindow for each marker to show additional information about the selected climate station.
 ////////////////
 function createStationMarker(selectedMarker,selectionMessage){
-	monthlyRainChrtData = "chd=t:" + selectedMarker.monthlyrain[0] + "," + selectedMarker.monthlyrain[1] + "," + selectedMarker.monthlyrain[2] + "," + selectedMarker.monthlyrain[3] + "," + selectedMarker.monthlyrain[4] + "," + selectedMarker.monthlyrain[5] + "," + selectedMarker.monthlyrain[6] + "," + selectedMarker.monthlyrain[7] + "," + selectedMarker.monthlyrain[8] + "," + selectedMarker.monthlyrain[9] + "," + selectedMarker.monthlyrain[10] + "," + selectedMarker.monthlyrain[11];
+    monthlyRainChrtData = "chd=t:" + selectedMarker.monthlyrain[0] + "," + selectedMarker.monthlyrain[1] + "," + selectedMarker.monthlyrain[2] + "," + selectedMarker.monthlyrain[3] + "," + selectedMarker.monthlyrain[4] + "," + selectedMarker.monthlyrain[5] + "," + selectedMarker.monthlyrain[6] + "," + selectedMarker.monthlyrain[7] + "," + selectedMarker.monthlyrain[8] + "," + selectedMarker.monthlyrain[9] + "," + selectedMarker.monthlyrain[10] + "," + selectedMarker.monthlyrain[11];
+    monthlyRainChrtDataLabels = "chm=N,000000,0,-1,10";
+    
 
 	infoWindow.setContent("<b>Name: </b> " + selectedMarker.name + "<br/>" + 
 						  "<b>ID: </b>" + selectedMarker.id + "<br/>" +
@@ -230,7 +232,7 @@ function createStationMarker(selectedMarker,selectionMessage){
 						  "<b>Lat: </b>" +  selectedMarker.latitude + "   <b>Long:</b> " + selectedMarker.longitude + " <br/><br/>" +
 						  "<b>Avg. Precipitation: </b>" + selectedMarker.avgrain + " mm ( " +  (Number(selectedMarker.avgrain) * 0.0393701).toFixed(2)   + " in ) <br/>" + 
 						  "<p><b>Monthly Precipitation (mm):</b><br/>" + 
-						  "<img src='https://chart.googleapis.com/chart?chxt=x,y&chds=a&cht=bvs&" + monthlyRainChrtData + "&chco=DA8B2E&chls=2.0&chs=350x125&chxl=0:|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'/>" +
+						  "<img src='https://chart.googleapis.com/chart?chxt=x,y&chds=a&cht=bvs&" + monthlyRainChrtData + "&" + monthlyRainChrtDataLabels + "&chco=DA8B2E&chls=2.0&chs=350x125&chxl=0:|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'/>" +
 						  "</p>" + 
 						  selectionMessage );
 	infoWindow.open(gmap,selectedMarker);
