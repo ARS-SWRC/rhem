@@ -740,11 +740,11 @@ class Results extends CI_Controller {
 		for($rp = 0; $rp < 6; $rp++)
 		{
 			$this->table->clear();
-			$tableHeaderTitle =  '<span class="toggleButton"><span class="toggleIconOn"/> ' . $returnPeriodNumber[$rp] . ' YEAR RETURN FREQUENCY RESULTS FOR YEARLY VALUES</span>';
+			$tableHeaderTitle =  '<span class="toggleButton"><span class="toggleIconOn"/> ' . $returnPeriodNumber[$rp] . ' YEAR RETURN FREQUENCY RESULTS FOR YEARLY MAXIMUM DAILY</span>';
 			$this->table->set_heading($headersArray);
 			
 			// add this a header for the current return period to the CSV results array
-			array_push($resultsForCSV,array($returnPeriodNumber[$rp] . ' YEAR RETURN FREQUENCY RESULTS FOR YEARLY VALUES'));
+			array_push($resultsForCSV,array($returnPeriodNumber[$rp] . ' YEAR RETURN FREQUENCY RESULTS FOR YEARLY MAXIMUM DAILY'));
 			
 			// loop through all the variables
 			for($var = 0; $var < 4; $var++)
