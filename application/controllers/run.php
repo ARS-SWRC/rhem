@@ -438,8 +438,7 @@ class Run extends CI_Controller {
 		$ft = pow(10,$ft);
 
 
-		// Caculate the new equation to calculate Ke.  For now, only Mariano will have access to
-		// this functionality
+		// Caculate the new equation to calculate Ke. 
 		switch ($soiltexture) {
 			case 1: // "Sand"
 				$Keb = 24 * exp(0.3483 * ($basalcover + $littercover) );

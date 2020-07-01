@@ -16,15 +16,15 @@
 
 				<div class="tabbable"> <!-- Only required for left/right tabs -->
 				<ul class="nav nav-tabs" style="margin-left: 0px;">
-					<li class="active"><a href="#tab1" data-toggle="tab"><b>Technical Docs</b></a></li>
-					<li><a href="#tab2" data-toggle="tab"><b>Tutorials/Training</b></a></li>
-					<li><a href="#tab3" data-toggle="tab"><b>Publications</b></a></li>
-					<li><a href="#tab4" data-toggle="tab"><b>Int’l Stations</b></a></li>
-					<li><a href="#tab5" data-toggle="tab"><b>Batch Script</b></a></li>
-                    <li><a href="#tab6" data-toggle="tab"><b>Versions</b></a></li>
+					<li class="active"><a id="technical_tab" href="#technical" data-toggle="tab"><b>Technical Docs</b></a></li>
+					<li><a id="tutorial_tab" href="#tutorials" data-toggle="tab"><b>Tutorials/Training</b></a></li>
+					<li><a id="publications_tab" href="#publications" data-toggle="tab"><b>Publications</b></a></li>
+					<li><a id="international_tab" href="#international" data-toggle="tab"><b>Int’l Stations</b></a></li>
+					<li><a id="batchscript_tab" href="#batchscript" data-toggle="tab"><b>Batch Script</b></a></li>
+                    <li><a id="versions_tab" href="#versions" data-toggle="tab"><b>Versions</b></a></li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane active" id="tab1">
+					<div class="tab-pane active" id="technical">
 						<h4>RHEM Model Technical Documentation</h4>
 						<p>
 							<ul>
@@ -60,7 +60,7 @@
 							<!--TODO: include a link to the .RUN file structure-->
 						</p>	
 					</div>
-					<div class="tab-pane" id="tab2">
+					<div class="tab-pane" id="tutorials">
 						<!-- This section will be used to store the tutorials that explain how to use RHEM -->
 						<h4>RHEM Tutorials and Learning</h4>
 						<p>
@@ -77,11 +77,18 @@
 							</ul>
 						</p>
 					</div>
-					<div class="tab-pane" id="tab3">
+					<div class="tab-pane" id="publications">
 					<h4>Related Publications</h4>
 	                <p>
 	                	<ul class="list-group">
-	                		<li class="pub_year_label"><span>2017</span></li>
+                            <li class="pub_year_label"><span>2020</span></li>
+	                		<li><a href="assets/docs/publications/Salinity/Arsland_Weltz_Nouwakpo_Salinity_Rangelands.pdf">Salt Balance of Moderately Saline-Alkaline Rangeland Soil and Runoff Water Quality from Rainfall Simulation Studies near Moab, Utah U.S.A.</a></li>
+                            <li><a href="assets/docs/publications/Salinity/BLM_ARS_Salinity_Final_Report.pdf">Report: Quantifying Relative Contributions of Salt Mobilization and Transport from Rangeland Ecological Sites in the Intermountain West</a></li>
+                            <li class="pub_year_label"><span>2019</span></li>
+	                		<li><a href="assets/docs/publications/Salinity/Mapping_erosion_risks_for_saline_rangelands_of_Mancos_Shale_using_RHEM_McGwire_Weltz.pdf">Mapping erosion risk for saline rangelands of the Mancos Shale using the rangeland hydrology erosion model</a></li>
+	                		<li class="pub_year_label"><span>2018</span></li>
+	                		<li><a href="assets/docs/publications/Salinity/Nouwakpo_Saline_and_Sodic_Soils.pdf">Process-Based Modeling of Infiltration, Soil Loss, and Dissolved Solids on Saline and Sodic Soils</a></li>
+                            <li class="pub_year_label"><span>2017</span></li>
 	                		<li><a href="https://www.tucson.ars.ag.gov/unit/publications/PDFfiles/2354.pdf">The Rangeland Hydrology and Erosion Model: A Dynamic
 Approach for Predicting Soil Loss on Rangelands</a></li>
 	                		<li class="pub_year_label"><span>2016</span></li>
@@ -115,7 +122,7 @@ Approach for Predicting Soil Loss on Rangelands</a></li>
 	                	</ul>
 	                </p>
 					</div>
-					<div class="tab-pane" id="tab4">
+					<div class="tab-pane" id="international">
 						<h4 id="international_stations">International Climate Stations</h4>
 						<p>
 							We have been working on expanding the coverage of the RHEM Web Tool (interface).  You now have the ability to use international climate stations.  In the “Climate Station” panel, you will see a tab for “International” stations. At the moment, we are providing 4 climate stations from Jordan.   Our intent is to include more stations from around the world.  If you are interested in contributing additional stations to the RHEM interface, please let us know. 
@@ -136,7 +143,7 @@ Approach for Predicting Soil Loss on Rangelands</a></li>
 							</ul>
 						</p>
 					</div>
-					<div class="tab-pane" id="tab5">
+					<div class="tab-pane" id="batchscript">
 						<h4>RHEM Batch Script</h4>
 						<p>This script is able to run RHEM in batch mode based on the RHEM Model-as-a-Service (MaaS) using the Cloud Services Innovation Platform (CSIP). More inormation about MaaS and CSIP can be read in <a href="https://digitalcommons.tacoma.uw.edu/cgi/viewcontent.cgi?article=1012&context=tech_pub">this publication</a>. This functionality enables you to run RHEM with multiple scenarios in batch format using a Python script. In order for you to run RHEM in batch mode, you are required to have:
 							<ol>
@@ -157,7 +164,7 @@ Approach for Predicting Soil Loss on Rangelands</a></li>
 							</ol>
 						</p>
 					</div>
-                    <div class="tab-pane" id="tab6">
+                    <div class="tab-pane" id="versions">
 						<h4>RHEM Web Tool Versions Documentation</h4>
 						<p>
                             <b>Version: <i>2.3 Update 5</i> </b>
@@ -264,6 +271,34 @@ Approach for Predicting Soil Loss on Rangelands</a></li>
 			</div>
 		</div>	
 		<?php include 'right.php'; ?> 
-		<?php include 'footer.php'; ?>	
+		<?php include 'footer.php'; ?>
+    <script>
+    $(document).ready(function(e) {
+        $("#technical_tab").click(function(){
+            location.replace("https://apps.tucson.ars.ag.gov/rhem/docs#technical");
+            setTimeout(function() { window.scrollTo(0, 0);}, 1); 
+        });
+        $("#tutorial_tab").click(function(){
+            location.replace("https://apps.tucson.ars.ag.gov/rhem/docs#tutorials");
+            setTimeout(function() { window.scrollTo(0, 0);}, 1); 
+        });
+        $("#publications_tab").click(function(){
+            location.replace("https://apps.tucson.ars.ag.gov/rhem/docs#publications");
+            setTimeout(function() { window.scrollTo(0, 0);}, 1); 
+        });
+        $("#international_tab").click(function(){
+            location.replace("https://apps.tucson.ars.ag.gov/rhem/docs#international");
+            setTimeout(function() { window.scrollTo(0, 0);}, 1); 
+        });
+        $("#batchscript_tab").click(function(){
+            location.replace("https://apps.tucson.ars.ag.gov/rhem/docs#batchscript");
+            setTimeout(function() { window.scrollTo(0, 0);}, 1); 
+        });
+        $("#versions_tab").click(function(){
+            location.replace("https://apps.tucson.ars.ag.gov/rhem/docs#versions");
+            setTimeout(function() { window.scrollTo(0, 0);}, 1); 
+        });
+    });
+    </script>	
 </body>
 </html>

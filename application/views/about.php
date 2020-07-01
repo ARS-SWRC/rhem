@@ -42,7 +42,8 @@
 						<li>A risk assessment methodology has been developed that calculates the risk of various sized erosion events occurring at a site 
 						of interest in its current or assumed condition.</li>  
 						<li>The risk assessment methodology using return frequency storm values will be further refined to calculate the risk of various 
-						sized erosion events occurring at a site of interest in its current or assumed condition.</li>  
+						sized erosion events occurring at a site of interest in its current or assumed condition.</li>
+                        <li>Update has been applied with the capacity to account for the effect of saline soils on erosion and to provide estimates of salt loads associated with runoff and erosion events.</li>
 					</ul>
 				</p>
             </div>
