@@ -51,9 +51,8 @@
                 <h4>Capabilities <span class="blue">In Progress</span></h4>
 				<p>
 					<ul>
-						<li>Parameter estimation procedures for the infiltration, runoff, and erosion parameters, which include concentrated 
-						flow erodibilities and hydraulic friction factors are underway for disturbed rangeland hillslopes.</li>   
 						<li>Implemention the CLIGrid featue which will enable RHEM to use storm inputs from pre-ran CLIGEN scenario runs for CONUS at a 4km scale.</li>  
+                        <li>Expansion of the international climate station listing.</li>  
 					</ul>
 				</p>
 			</div>
