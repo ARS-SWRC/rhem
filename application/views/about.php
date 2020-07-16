@@ -52,7 +52,7 @@
 				<p>
 					<ul>
 						<li>Implemention the CLIGrid featue which will enable RHEM to use storm inputs from pre-ran CLIGEN scenario runs for CONUS at a 4km scale.</li>  
-                        <li>Expansion of the international climate station listing. TEST</li>  
+                        <li>Expansion of the international climate station listing.</li>  
 					</ul>
 				</p>
 			</div>
