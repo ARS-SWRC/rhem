@@ -490,24 +490,20 @@ class Rhemmodel extends CI_Model
 			$inches_cnv = 0.0393700787;
 			//$lbs_per_acre_cnv = 892.179122;
 			$ton_per_acre_cnv = 0.446;
-			$rp_SQL = "SELECT (rp_ppt_tbl.2yr_rp_rain * $inches_cnv) AS 2yr_rp_rain,(rp_ppt_tbl.5yr_rp_rain * $inches_cnv) AS 5yr_rp_rain,(rp_ppt_tbl.10yr_rp_rain * $inches_cnv) AS 10yr_rp_rain,(rp_ppt_tbl.25yr_rp_rain * $inches_cnv) AS 25yr_rp_rain,(rp_ppt_tbl.50yr_rp_rain * $inches_cnv) AS 50yr_rp_rain,(rp_ppt_tbl.100yr_rp_rain * $inches_cnv) AS 100yr_rp_rain,
+			$rp_SQL = "SELECT (2yr_rp_rain * $inches_cnv) AS 2yr_rp_rain,(5yr_rp_rain * $inches_cnv) AS 5yr_rp_rain,(10yr_rp_rain * $inches_cnv) AS 10yr_rp_rain,(25yr_rp_rain * $inches_cnv) AS 25yr_rp_rain,(50yr_rp_rain * $inches_cnv) AS 50yr_rp_rain,(100yr_rp_rain * $inches_cnv) AS 100yr_rp_rain,
 							(2yr_rp_runoff * $inches_cnv) AS 2yr_rp_runoff,(5yr_rp_runoff * $inches_cnv) AS 5yr_rp_runoff,(10yr_rp_runoff * $inches_cnv) AS 10yr_rp_runoff,(25yr_rp_runoff * $inches_cnv) AS 25yr_rp_runoff,(50yr_rp_runoff * $inches_cnv) AS 50yr_rp_runoff,(100yr_rp_runoff * $inches_cnv) AS 100yr_rp_runoff,
 							(2yr_rp_soilloss * $ton_per_acre_cnv) AS 2yr_rp_soilloss,(5yr_rp_soilloss * $ton_per_acre_cnv) AS 5yr_rp_soilloss,(10yr_rp_soilloss * $ton_per_acre_cnv) AS 10yr_rp_soilloss,(25yr_rp_soilloss * $ton_per_acre_cnv) AS 25yr_rp_soilloss,(50yr_rp_soilloss * $ton_per_acre_cnv) AS 50yr_rp_soilloss,(100yr_rp_soilloss * $ton_per_acre_cnv) AS 100yr_rp_soilloss,
 							(2yr_rp_sedyield * $ton_per_acre_cnv) AS 2yr_rp_sedyield,(5yr_rp_sedyield * $ton_per_acre_cnv) AS 5yr_rp_sedyield,(10yr_rp_sedyield * $ton_per_acre_cnv) AS 10yr_rp_sedyield,(25yr_rp_sedyield * $ton_per_acre_cnv) AS 25yr_rp_sedyield,(50yr_rp_sedyield * $ton_per_acre_cnv) AS 50yr_rp_sedyield,(100yr_rp_sedyield * $ton_per_acre_cnv) AS 100yr_rp_sedyield
-						FROM scenario_output,
-							 (SELECT 2yr_rp_rain,5yr_rp_rain,10yr_rp_rain,25yr_rp_rain,50yr_rp_rain,100yr_rp_rain FROM rp_300_yr_rain JOIN user_scenarios AS us_tbl ON rp_300_yr_rain.station_id = us_tbl.station_id
-							  WHERE us_tbl.scenario_id = " .  $scenario_id . ") AS rp_ppt_tbl
+						FROM scenario_output
 						WHERE scenario_id = " .  $scenario_id . ";";
 		}
 		else{
 			// convert from kg/ha to Mg/ha (short ton)
-			$rp_SQL = "SELECT rp_ppt_tbl.2yr_rp_rain,rp_ppt_tbl.5yr_rp_rain,rp_ppt_tbl.10yr_rp_rain,rp_ppt_tbl.25yr_rp_rain,rp_ppt_tbl.50yr_rp_rain,rp_ppt_tbl.100yr_rp_rain,
+			$rp_SQL = "SELECT 2yr_rp_rain,5yr_rp_rain,10yr_rp_rain,25yr_rp_rain,50yr_rp_rain,100yr_rp_rain,
 							2yr_rp_runoff,5yr_rp_runoff,10yr_rp_runoff,25yr_rp_runoff,50yr_rp_runoff,100yr_rp_runoff,
 							2yr_rp_soilloss,5yr_rp_soilloss,10yr_rp_soilloss,25yr_rp_soilloss,50yr_rp_soilloss,100yr_rp_soilloss,
 							2yr_rp_sedyield,5yr_rp_sedyield,10yr_rp_sedyield,25yr_rp_sedyield,50yr_rp_sedyield,100yr_rp_sedyield
-						FROM scenario_output,
-							 (SELECT 2yr_rp_rain,5yr_rp_rain,10yr_rp_rain,25yr_rp_rain,50yr_rp_rain,100yr_rp_rain FROM rp_300_yr_rain JOIN user_scenarios AS us_tbl ON rp_300_yr_rain.station_id = us_tbl.station_id
-							  WHERE us_tbl.scenario_id = " .  $scenario_id . ") AS rp_ppt_tbl
+						FROM scenario_output
 						WHERE scenario_id = " .  $scenario_id . ";";
 		}
 				
@@ -577,25 +573,6 @@ class Rhemmodel extends CI_Model
 		$all_output_query = $this->db->query($sql);
 		$all_output_query_results = $all_output_query->row_array();
 		return $all_output_query_results;
-	}
-
-
-	/**
-	 * Gets precipitation return periods for a station based on a scenario_id
-	 * Note: this funciton is used to add the average ppt value to the Summary output file
-	 *
-	 * @access	public
-	 * @param	$scnearioid
-	 */
-	function get_ppt_station_ppt_return_periods($scenario_id)
-	{
-		$rp_SQL = "SELECT 2yr_rp_rain,5yr_rp_rain,10yr_rp_rain,25yr_rp_rain,50yr_rp_rain,100yr_rp_rain FROM rp_300_yr_rain JOIN user_scenarios AS us_tbl ON rp_300_yr_rain.station_id = us_tbl.station_id
-							  WHERE us_tbl.scenario_id = " .  $scenario_id . ";";
-
-		$rp_Query = $this->db->query($rp_SQL);
-		$rp_Query_Result_Array = $rp_Query->row_array();
-		
-		return $rp_Query_Result_Array;
 	}
 
 	/**

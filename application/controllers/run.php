@@ -249,7 +249,7 @@ class Run extends CI_Controller {
 			// NOTE: in order to incorporate the new report section I will need to:
 			//       1)  Replace the RHEM executable when running from STORM
 			//       2)  Read the Yearly Totals in addition to the Yearly Maximum Dailies from the .sum file
-			//       3)  Modify the rp_300_yr_rain DB table and incorporate columns for the 2,5,10,25,50, and 100 year Yearly Totals
+			//       3)  Modify the scenario_output DB table and incorporate columns for the 2,5,10,25,50, and 100 year Yearly Totals
 			//       4)  Modify the Tool view and controller so that the new "Yearly Totals" table can be added when the user opens a single scenario
 			//       5)  Think about cleaning up this controller (Run) in order to disallow the tool to run the version of the model from MUDFLOW
 			//       6)  Give the updated executable to Olaf David, so that they can update their CSIP RHEM service
