@@ -16,18 +16,18 @@ var markers = [];
 
 var APPROOT = "https://apps.tucson.ars.ag.gov/rhem/";
 
-var raingauge_image = new google.maps.MarkerImage(
-    APPROOT + 'assets/images/map_marker/image.png',
-    new google.maps.Size(40,40),
-    new google.maps.Point(0,0),
-    new google.maps.Point(20,40)
-);
-var raingauge_shadow = new google.maps.MarkerImage(
-    APPROOT + 'assets/images/map_marker/shadow.png',
-    new google.maps.Size(64,40),
-    new google.maps.Point(0,0),
-    new google.maps.Point(20,40)
-);
+var raingauge_image = {
+    url: APPROOT + 'assets/images/map_marker/image.png',
+    size: new google.maps.Size(40,40),
+    origin: new google.maps.Point(0,0),
+    anchor: new google.maps.Point(20,40)
+};
+var raingauge_shadow = {
+    url: APPROOT + 'assets/images/map_marker/shadow.png',
+    size: new google.maps.Size(64,40),
+    origin: new google.maps.Point(0,0),
+    anchor: new google.maps.Point(20,40)
+};
 
 var infoWindow = new google.maps.InfoWindow();
 
