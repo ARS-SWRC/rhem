@@ -29,9 +29,6 @@ $(document).ready(function(e) {
 $(window).load(function () {
     // confirm before closing window to prevent scenario data loss
     preventWindowClose();
-    // init map used to select precip stationteamviewer
-    
-    initializeMap();
     // load the pannel interactivity
 	loadPanels();
 	// when opening an existing scenario, load the selected climate station and load the scenario output table

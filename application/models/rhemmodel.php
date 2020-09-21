@@ -732,7 +732,7 @@ class Rhemmodel extends CI_Model
 	 */
 	function get_all_states()
     {
-        $query = $this->db->query("SELECT * FROM states ORDER BY state_name ;");
+        $query = $this->db->query("SELECT * FROM states WHERE state_id NOT LIKE 'INTL_%' ORDER BY state_name;");
         return $query->result();
     }
 	

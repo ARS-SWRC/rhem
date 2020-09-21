@@ -337,7 +337,7 @@
 		</div>
 
         <script type="text/javascript" src="assets/scripts/jquery-plugins.js?updated=<?php echo time();?>"></script>
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbJ2kgRWtqwTBYeMV9tdRHE-9tSRqQDw0" type="text/javascript"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbJ2kgRWtqwTBYeMV9tdRHE-9tSRqQDw0&callback=initializeMap" type="text/javascript"></script>
         <script type="text/javascript" src="assets/scripts/charts.js?updated=<?php echo time();?>"></script>
         <script type="text/javascript" src="assets/scripts/map_func.js?updated=<?php echo time();?>"></script>
         <script type="text/javascript" src="assets/scripts/html2canvas.js"></script>
