@@ -14,33 +14,36 @@ var markers = [];
 
 var APPROOT = "https://apps.tucson.ars.ag.gov/rhem/";
 
-var raingauge_image = {
-    url: APPROOT + 'assets/images/map_marker/image.png',
-    size: new google.maps.Size(40,40),
-    origin: new google.maps.Point(0,0),
-    anchor: new google.maps.Point(20,40)
-};
-var raingauge_shadow = {
-    url: APPROOT + 'assets/images/map_marker/shadow.png',
-    size: new google.maps.Size(64,40),
-    origin: new google.maps.Point(0,0),
-    anchor: new google.maps.Point(20,40)
-};
-
-var infoWindow = new google.maps.InfoWindow();
+var raingauge_image;
+var raingauge_shadow;
+var infoWindow;
 
 ////////////////
 // Initialized the Google Maps component (based on version 3.8)
 ///////////////
 function initializeMap() {
-		var mapOptions = { //zoom: 4,
+	var mapOptions = { //zoom: 4,
 		panControl:false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		streetViewControl:false,
 		navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
 		mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU}
 	};
-	gmap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+    gmap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+
+    raingauge_image = {
+        url: APPROOT + 'assets/images/map_marker/image.png',
+        size: new google.maps.Size(40,40),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(20,40)
+    };
+    raingauge_shadow = {
+        url: APPROOT + 'assets/images/map_marker/shadow.png',
+        size: new google.maps.Size(64,40),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(20,40)
+    };
+    infoWindow = new google.maps.InfoWindow();
 }
 
 ////////////////
