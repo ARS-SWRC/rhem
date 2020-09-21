@@ -3,8 +3,6 @@
  *
  * Author: Gerardo Armendariz
  *
- * Edited:  06-13-2016
- *
  * This script handles all the climate station map functionality
  */
 
