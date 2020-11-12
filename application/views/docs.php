@@ -73,7 +73,14 @@
 						<h4>Past RHEM Trainings</h4>
 						<p>
 							<ul>
-								<li><a href="http://2016canada.rangelandcongress.org/workshops.html#sthash.IXhsfFi2.dpbs">RHEM Web Tool Workshop at the 10th International Rangeland Congress (7-17-2016)</a></li>
+								<li><a href="http://2016canada.rangelandcongress.org/workshops.html#sthash.IXhsfFi2.dpbs"><b>7-17-2016:</b> RHEM Web Tool Workshop at the 10th International Rangeland Congress (7-17-2016)</a></li>
+                                <li><a href="<?php echo base_url(); ?>trainings/training_blm_11092020"><b>11-9-2020:</b> RHEM BLM Workshop</a></li>
+							</ul>
+						</p>
+                        <h4>Upcoming RHEM Trainigs</h4>
+						<p>
+							<ul>
+								
 							</ul>
 						</p>
 					</div>

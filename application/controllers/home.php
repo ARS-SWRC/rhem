@@ -50,8 +50,19 @@ class Home extends CI_Controller {
 	public function docs()
 	{
 		$this->load->view('docs');
+    }
+    
+	/**
+	 * Route to the training materials
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function training_blm_11092020()
+	{
+		$this->load->view('trainings/training_blm_11092020');
 	}
-	
+    
 	public function page404()
 	{
 		$this->load->view("page404.php");

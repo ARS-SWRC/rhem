@@ -44,6 +44,8 @@ $route['404_override'] = 'home/page404';
 /* route the following static pages from the main controller */
 $route['about'] = 'home/about';
 $route['docs'] = 'home/docs';
+$route['training'] = 'home/training';
+$route['trainings/training_blm_11092020'] = 'home/training_blm_11092020';
 $route['recover'] = 'login/recover';
 
 /* End of file routes.php */
